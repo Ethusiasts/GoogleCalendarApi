@@ -20,13 +20,37 @@ const fetchCard = document.querySelector('.fetchCard');
 
 
 
-// begin
+// Begin
 if (document.addEventListener) {
     document.addEventListener("click", handleClick, false);
 }
 else if (document.attachEvent) {
     document.attachEvent("onclick", handleClick);
 }
+
+
+// End
+function handleClick(event) {
+    event = event || window.event;
+    var element = event.target || event.srcElement;
+    // Climb up the document tree from the target of the event
+        if (element.className.match('delete-event')) {
+            // The user clicked on a <button> or clicked on an element inside a <button>
+            // with a class name called "foo"
+            const deletebtn = document.querySelector('.delete-item')
+            removeEvent(event)   ;
+        }   
+        if (element.className.match('update-event')) {
+            // The user clicked on a <button> or clicked on an element inside a <button>
+            // with a class name called "foo"
+            console.log("yes "+ event.target.parentElement.parentElement.children[5].textContent)
+            let eventId = event.target.parentElement.parentElement.children[5].textContent;
+            updateEvent(eventId);
+            // const deletebtn = document.querySelector('.delete-item')
+            // removeEvent(event)   ;
+        }
+}
+
 
 
 var CLIENT_ID = '269517427467-vnendark26qhr9dpqrkl7mg6nf0106k1.apps.googleusercontent.com';
@@ -49,7 +73,7 @@ var signoutButton = document.getElementById('signout_button');
 
 
 // Action Litner for Update
-update_eve.addEventListener('click',updateEvent);
+update_eve.addEventListener('click',updateEvent2);
 
 
 
@@ -207,7 +231,7 @@ function listUpcomingEvents() {
 }
 
 
-function updateEvent(){
+function updateEvent2(){
 	    var event = {
         'calendarId': 'primary',
         'eventId': `${eventIdStore[0]}`,
