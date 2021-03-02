@@ -17,6 +17,18 @@ const ins = document.querySelector(".ins")
 const display = document.querySelector('#display')
 const fetchCard = document.querySelector('.fetchCard');
 // Client ID and API key from the Developer Console
+
+
+
+// begin
+if (document.addEventListener) {
+    document.addEventListener("click", handleClick, false);
+}
+else if (document.attachEvent) {
+    document.attachEvent("onclick", handleClick);
+}
+
+
 var CLIENT_ID = '269517427467-vnendark26qhr9dpqrkl7mg6nf0106k1.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyA3Xj5L-GtumYAPwsdEA8uscqpi4Gvh_Qw';
 
