@@ -101,3 +101,28 @@
   background: linear-gradient(-135deg, #71b7e6, #9b59b6);
 }
 
+@media (max-width: 584px) {
+    .InsertContainer {
+      max-width: 100%;
+    }
+    .InsertContainer form .user-details .input-box {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    .InsertContainer form .category {
+      width: 100%;
+    }
+    .InsertContainer .content form .user-details {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+    .user-details::-webkit-scrollbar {
+      width: 5px;
+    }
+  }
+  @media (max-width: 459px) {
+    .InsertContainer .content .category {
+      flex-direction: column;
+    }
+  }
+  
