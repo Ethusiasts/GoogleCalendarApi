@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
     integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
   <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/insert.css">
   <title>Google Calander</title>
 </head>
 
@@ -75,6 +76,55 @@ Your Google Calendar comes with your personal Gmail address, and you won't belie
 
   </div>
 
+  <div class="container">
+    <div class="InsertContainer ins" style="display: none;">
+      <div class="title">Insert Events</div>
+      <div class="content">
+        <form action="#">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Event Name</span>
+              <input type="text" placeholder="Enter Event Name" id="summery" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Location</span>
+              <input type="text" placeholder="Place" id="location" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Start Date</span>
+              <input type="date" placeholder="Starting Date" id="startDate" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Start Time</span>
+              <input type="time" placeholder="Starting Time" id="startTime" required>
+            </div>
+            <div class="input-box">
+              <span class="details">End Date</span>
+              <input type="date" placeholder="Ending Date" id="endDate" required>
+            </div>
+            <div class="input-box">
+              <span class="details">End Time</span>
+              <input type="time" placeholder="Ending Time" id="endTime" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Attendees</span>
+              <input type="email" placeholder="Attendees Emails" id="attendees" required>
+            </div>
+            <div class="textarea-box">
+              <span class="details">Message</span>
+              <textarea name="message"  cols="30" rows="8" id="message"></textarea>
+            </div>
+          </div>
+          <div class="button">
+            <input type="button" value="Add Event" id="add">
+          </div>
+          <div class="button">
+            <input type="button" value="Update Event" id="update-event">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 
 
