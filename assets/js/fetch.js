@@ -33,6 +33,18 @@ var signoutButton = document.getElementById('signout_button');
 // var del = document.getElementById('delete');
 // var update = document.getElementById('update');
 
+
+
+
+// Action Litner for Update
+update_eve.addEventListener('click',updateEvent);
+
+
+
+
+
+
+
 /**
  *  On load, called to load the auth2 library and API client library.
  */
@@ -180,4 +192,37 @@ function listUpcomingEvents() {
             `
         }
     });
+}
+
+
+function updateEvent(){
+	    var event = {
+        'calendarId': 'primary',
+        'eventId': `${eventIdStore[0]}`,
+        'resource': {
+            'summary': `${summery.value}`,
+            'location': `${loc.value}`,
+            'description': `${message.value}`,
+            'start': {
+                'dateTime': `${startDate.value}T${startTime.value}:00-02:00`,
+                'timeZone': 'America/Los_Angeles'
+            },
+            'end': {
+                'dateTime':  `${endDate.value}T${endTime.value}:00-02:00`,
+                'timeZone': 'America/Los_Angeles'
+            },
+            'attendees': [
+                { 'email': 'se.abenezer.fekadu@gmail.com' },
+                { 'email': `${attendees.value}` }
+            ],
+            'reminders': {
+                'useDefault': false,
+                'overrides': [
+                    { 'method': 'email', 'minutes': 24 * 60 },
+                    { 'method': 'popup', 'minutes': 10 }
+                ]
+            }
+        }
+    };
+
 }
