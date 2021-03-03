@@ -313,15 +313,21 @@ function insertEvent() {
 
 // Delete Events
 function removeEvent(e) {
-            var eventId = "3nedkh0prreflbddvl0ir5lk60_20210226T030000Z"
-            var event = {
-                calendarId: 'primary',
-                eventId: eventId,
-            };
-            return gapi.client.calendar.events.delete(event)
-                .then(function (response) {
-                    // Handle the results here (response.result has the parsed body).
-                    console.log("Response", response);
-                },
-                    function (err) { console.error("Execute error", err); });
+	    // e.target.parentElement.remove();
+        var eventId = e.target.parentElement.parentElement.children[5].textContent;
+        var event = {
+            calendarId: 'primary',
+            eventId: eventId,
+        };
+        if (confirm('Are You Sure about that ?')) {
+            e.target.parentElement.parentElement.remove();
+
+        }
+        // gapi.client.calendar.events.delete({ calendarId: 'primary', eventId: '7p68amsdo1ut2pl2lj7gtqks38_20210226T030000Z' })
+        return gapi.client.calendar.events.delete(event)
+            .then(function (response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+            },
+                function (err) { console.error("Execute error", err); });
 }
