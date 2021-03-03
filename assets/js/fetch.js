@@ -125,3 +125,59 @@ function appendPre(messsage,...rest) {
       </article>
     `;
 }
+
+/**
+ * Print the summary and start datetime/date of the next ten events in
+ * the authorized user's calendar. If no events are found an
+ * appropriate message is printed.
+ */
+
+function listUpcomingEvents() {
+    
+    adding();
+    fetchCard.style.display = "flex";
+    ins.style.display = "none";
+
+    gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        'maxResults': 10,
+        'orderBy': 'startTime'
+    }).then(function (response) {
+        var events = response.result.items;
+        // appendPre('Upcoming events:');
+        console.log(events)
+        if (events.length > 0) {
+            fetchCard.innerHTML = "";
+            for (i = 0; i < events.length; i++) {
+                var event = events[i];
+                var dateTime = event.start.dateTime
+                var dateTimeEnd = event.end.dateTime
+                if (!dateTime) {
+                    dateTime = event.start.date;
+                }
+                if (!dateTimeEnd) {
+                    dateTimeEnd = event.end.date;
+                }
+                // console.log(event.attendees);
+
+              
+                appendPre(event.summary,event.description,event.attendees, dateTime, dateTimeEnd,event.id)
+            }
+            
+            console.log('hiiiiii')
+
+            
+           
+        } else {
+            const fetchCard = document.querySelector('.fetchCard');
+            fetchCard.innerHTML = `
+            <div class="card-body">
+            <h5 class="card-title">No upcoming events found.</h5>
+            </div> 
+            `
+        }
+    });
+}
