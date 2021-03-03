@@ -49,12 +49,12 @@ else if (document.attachEvent) {
 }
 // Listener for Update
 update_eve.addEventListener('click',updateEvent2);
-// Listener for inserting events
-insert.addEventListener('click',displayCards);
+// Listener for displaying  events form
+insert.addEventListener('click',displayForm);
 // Listener for upcoming events
 display.addEventListener('click',listUpcomingEvents);
-
-
+// Listner for adding Events
+add.addEventListener('click', insertEvent)
 // end
 
 
@@ -151,14 +151,14 @@ function handleClick(event) {
         }
 }
 function updateEvent(incomingEventId) {
-    displayCards();
+    displayForm();
     add.style.display = "none";
     update_eve.style.display = "block";
     eventIdStore.push(incomingEventId);
 }
 
 
-function displayCards(){ 
+function displayForm(){ 
    
     fetchCard.style.display = "none";
     calendarHomePage.style.display = "none";
