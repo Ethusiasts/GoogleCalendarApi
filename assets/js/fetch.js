@@ -271,3 +271,43 @@ function updateEvent2(){
                     function (err) { console.log("Execute error", err); });
 
 }
+
+
+// Inserting To Calendar
+function insertEvent() {
+    return gapi.client.calendar.events.insert({
+                'calendarId': 'primary',
+                'resource': {
+                    'summary': 'Family',
+                    'location': 'Addis Abeba',
+                    'description': 'All my  Family members are going to get together and i should be there.',
+                    'start': {
+                        'dateTime': '2021-03-3T01:00:00-02:00',
+                        'timeZone': 'America/Los_Angeles'
+                    },
+                    'end': {
+                        'dateTime': '2021-03-4T01:00:00-02:00',
+                        'timeZone': 'America/Los_Angeles'
+                    },
+                    'recurrence': [
+                        'RRULE:FREQ=DAILY;COUNT=1'
+                    ],
+                    'attendees': [
+                        { 'email': 'se.abenezer.fekadu@gmail.com' },
+                        { 'email': 'se.biruk.fekadu@gmail.com' }
+                    ],
+                    'reminders': {
+                        'useDefault': false,
+                        'overrides': [
+                            { 'method': 'email', 'minutes': 24 * 60 },
+                            { 'method': 'popup', 'minutes': 10 }
+                        ]
+                    }
+                }
+            })
+        .then(function (response) {
+            // Handle the results here (response.result has the parsed body).
+            console.log("Response", response);
+        },
+            function (err) { console.error("Execute error", err); });
+}
