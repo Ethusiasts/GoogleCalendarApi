@@ -310,3 +310,18 @@ function insertEvent() {
         },
             function (err) { console.error("Execute error", err); });
 }
+
+// Delete Events
+function removeEvent(e) {
+            var eventId = "3nedkh0prreflbddvl0ir5lk60_20210226T030000Z"
+            var event = {
+                calendarId: 'primary',
+                eventId: eventId,
+            };
+            return gapi.client.calendar.events.delete(event)
+                .then(function (response) {
+                    // Handle the results here (response.result has the parsed body).
+                    console.log("Response", response);
+                },
+                    function (err) { console.error("Execute error", err); });
+}
