@@ -177,11 +177,11 @@ function appendPre(messsage,...rest) {
             <h2>${messsage}</h2>
           </header>
          
-        <div class="author-name">${rest[0]}</div>
-        <div class="author-name">${rest[1][0].email}</div>
-        <div class="author-name">${rest[2]}</div>
-        <div class="author-name">${rest[3]}</div>
-        <div class="author-name to-be-deleted-id" style = "display:none">${rest[4]}</div> 
+        <div class="incoming-name">${rest[0]}</div>
+        <div class="incoming-name">${rest[1][0].email}</div>
+        <div class="incoming-name">${rest[2]}</div>
+        <div class="incoming-name">${rest[3]}</div>
+        <div class="incoming-name to-be-deleted-id" style = "display:none">${rest[4]}</div> 
         <div class="tags">
             <a href="#" class="btn btn-primary update-event">Update</a>
             <a href="#" class="btn btn-primary delete-event">Delete</a>
