@@ -1,7 +1,11 @@
-// defining the variable
+// defining variables
+
+// start
+
+
 let eventIdStore = new Array();
+// inputs from the user during inserting event
 const summery = document.querySelector("#summery")
-const calendarHomePage = document.querySelector(".home-calendar-page")
 const loc = document.querySelector("#location")
 const startDate = document.querySelector("#startDate")
 const startTime = document.querySelector("#startTime")
@@ -10,48 +14,53 @@ const endTime = document.querySelector("#endTime")
 const attendees = document.querySelector("#attendees")
 const message = document.querySelector("#message")
 
+// front page content
+const calendarHomePage = document.querySelector(".home-calendar-page")
+// add event button
 const add =document.querySelector("#add");
+// update event button
 const update_eve = document.querySelector("#update-event");
+// insert event button (on the navigation bar)
 const insert = document.querySelector("#insert")
+// container for event adding page 
 const ins = document.querySelector(".ins")
+// upcoming events (on the navigation bar)
 const display = document.querySelector('#display')
+// cards to diplay upcoming events
 const fetchCard = document.querySelector('.fetchCard');
-// Client ID and API key from the Developer Console
+
+// authorization and signOut buttons
+var authorizeButton = document.getElementById('authorize_button');
+var signoutButton = document.getElementById('signout_button');
+
+// end
+
+// event listeners
+
+// start
 
 
-
-// Begin
+// detecting which delete or update button is clicked by listening on the document
 if (document.addEventListener) {
     document.addEventListener("click", handleClick, false);
 }
 else if (document.attachEvent) {
     document.attachEvent("onclick", handleClick);
 }
+// Listener for Update
+update_eve.addEventListener('click',updateEvent2);
+// Listener for inserting events
+insert.addEventListener('click',displayCards);
+// Listener for upcoming events
+display.addEventListener('click',listUpcomingEvents);
 
 
-// End
-function handleClick(event) {
-    event = event || window.event;
-    var element = event.target || event.srcElement;
-    // Climb up the document tree from the target of the event
-        if (element.className.match('delete-event')) {
-            // The user clicked on a <button> or clicked on an element inside a <button>
-            // with a class name called "foo"
-            const deletebtn = document.querySelector('.delete-item')
-            removeEvent(event)   ;
-        }   
-        if (element.className.match('update-event')) {
-            // The user clicked on a <button> or clicked on an element inside a <button>
-            // with a class name called "foo"
-            console.log("yes "+ event.target.parentElement.parentElement.children[5].textContent)
-            let eventId = event.target.parentElement.parentElement.children[5].textContent;
-            updateEvent(eventId);
-            // const deletebtn = document.querySelector('.delete-item')
-            // removeEvent(event)   ;
-        }
-}
+// end
 
 
+
+// Client ID and API key from the Developer Console
+// start
 
 var CLIENT_ID = '269517427467-vnendark26qhr9dpqrkl7mg6nf0106k1.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyA3Xj5L-GtumYAPwsdEA8uscqpi4Gvh_Qw';
@@ -59,40 +68,21 @@ var API_KEY = 'AIzaSyA3Xj5L-GtumYAPwsdEA8uscqpi4Gvh_Qw';
 // Array of API discovery doc URLs for APIs used by the quickstart
 var DISCOVERY_DOCS = ["https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
 
-// Authorization scopes required by the API; multiple scopes can be
-// included, separated by spaces.
+// Authorization scopes required by the API; 
 var SCOPES = "https://www.googleapis.com/auth/calendar";
 
-var authorizeButton = document.getElementById('authorize_button');
-var signoutButton = document.getElementById('signout_button');
-// var inser = document.getElementById('insert');
-// var del = document.getElementById('delete');
-// var update = document.getElementById('update');
+// end
 
-
-
-
-// Action Litner for Update
-update_eve.addEventListener('click',updateEvent2);
-
-
-
-
-
-
-
-/**
- *  On load, called to load the auth2 library and API client library.
- */
+//  On load, called to load the auth2 library and API client library.
+ 
 
 function handleClientLoad() {
     gapi.load('client:auth2', initClient);
 }
 
-/**
- *  Initializes the API client library and sets up sign-in state
- *  listeners.
- */
+
+//    Initializes the API client library and sets up sign-in state listeners.
+ 
 function initClient() {
     gapi.client.init({
         apiKey: API_KEY,
@@ -107,53 +97,79 @@ function initClient() {
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
         authorizeButton.onclick = handleAuthClick;
         signoutButton.onclick = handleSignoutClick;
-
-        // listUpcomingEvents();
     }, function (error) {
         appendPre(JSON.stringify(error, null, 2));
     
     });
 }
 
-/**
- *  Called when the signed in status changes, to update the UI
- *  appropriately. After a sign-in, the API is called.
- */
+
+//   Called when the signed in status changes, to update the UI appropriately. After a sign-in, the API is called.
+ 
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
         authorizeButton.style.display = 'none';
         signoutButton.style.display = 'block';
-        
-        console.log("Sign-In Successfull")
-        // getIt();
-        // listUpcomingEvents();
     } else {
         authorizeButton.style.display = 'block';
         signoutButton.style.display = 'none';
-
-        console.log("Sign-Out Successfull")
-        
     }
 }
 
-/**
- *  Sign in the user upon button click.
- */
+
+//  Sign in the user upon button click.
+
 function handleAuthClick(event) {
     gapi.auth2.getAuthInstance().signIn();
 }
-/**
- *  Sign out the user upon button click.
- */
+
+//  Sign out the user upon button click.
+
 function handleSignoutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
 }
 
-/**
- * Append a pre element to the body containing the given message
- * as its text node. Used to display the results of the API call.
- *
- */
+
+
+
+
+function handleClick(event) {
+    event = event || window.event;
+    var element = event.target || event.srcElement;
+    // Climb up the document tree from the target of the event
+        if (element.className.match('delete-event')) {
+            // The user clicked on a <button> or clicked on an element inside a <button>
+            // with a class name called "delete-event"
+            const deletebtn = document.querySelector('.delete-item')
+            removeEvent(event)   ;
+        }   
+        if (element.className.match('update-event')) {
+            // The user clicked on a <button> or clicked on an element inside a <button>
+            // with a class name called "update-event"
+            let eventId = event.target.parentElement.parentElement.children[5].textContent;
+            updateEvent(eventId);
+        }
+}
+function updateEvent(incomingEventId) {
+    displayCards();
+    add.style.display = "none";
+    update_eve.style.display = "block";
+    eventIdStore.push(incomingEventId);
+}
+
+
+function displayCards(){ 
+   
+    fetchCard.style.display = "none";
+    calendarHomePage.style.display = "none";
+    // fetchCard.style.display = "none";
+    update_eve.style.display = "none";
+    ins.style.display = "block";
+    add.style.display = "block";
+    
+}
+
+// appending to the cards
 function appendPre(messsage,...rest) {
     fetchCard.innerHTML += `
     <article class="card">
@@ -174,15 +190,10 @@ function appendPre(messsage,...rest) {
     `;
 }
 
-/**
- * Print the summary and start datetime/date of the next ten events in
- * the authorized user's calendar. If no events are found an
- * appropriate message is printed.
- */
-
+// fetching upcoming events
 function listUpcomingEvents() {
     
-    adding();
+    displayCards();
     fetchCard.style.display = "flex";
     ins.style.display = "none";
 
@@ -195,8 +206,6 @@ function listUpcomingEvents() {
         'orderBy': 'startTime'
     }).then(function (response) {
         var events = response.result.items;
-        // appendPre('Upcoming events:');
-        console.log(events)
         if (events.length > 0) {
             fetchCard.innerHTML = "";
             for (i = 0; i < events.length; i++) {
@@ -209,15 +218,8 @@ function listUpcomingEvents() {
                 if (!dateTimeEnd) {
                     dateTimeEnd = event.end.date;
                 }
-                // console.log(event.attendees);
-
-              
                 appendPre(event.summary,event.description,event.attendees, dateTime, dateTimeEnd,event.id)
-            }
-            
-            console.log('hiiiiii')
-
-            
+            }    
            
         } else {
             const fetchCard = document.querySelector('.fetchCard');
@@ -230,7 +232,7 @@ function listUpcomingEvents() {
     });
 }
 
-
+// updating event
 function updateEvent2(){
 	    var event = {
         'calendarId': 'primary',
