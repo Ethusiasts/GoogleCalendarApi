@@ -100,3 +100,28 @@ function handleAuthClick(event) {
 function handleSignoutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
 }
+
+/**
+ * Append a pre element to the body containing the given message
+ * as its text node. Used to display the results of the API call.
+ *
+ */
+function appendPre(messsage,...rest) {
+    fetchCard.innerHTML += `
+    <article class="card">
+          <header class="card-header">
+            <h2>${messsage}</h2>
+          </header>
+         
+        <div class="author-name">${rest[0]}</div>
+        <div class="author-name">${rest[1][0].email}</div>
+        <div class="author-name">${rest[2]}</div>
+        <div class="author-name">${rest[3]}</div>
+        <div class="author-name to-be-deleted-id" style = "display:none">${rest[4]}</div> 
+        <div class="tags">
+            <a href="#" class="btn btn-primary update-event">Update</a>
+            <a href="#" class="btn btn-primary delete-event">Delete</a>
+        </div>
+      </article>
+    `;
+}
