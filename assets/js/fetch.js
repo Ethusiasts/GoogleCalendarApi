@@ -61,7 +61,8 @@ function initClient() {
         signoutButton.onclick = handleSignoutClick;
 
         // listUpcomingEvents();
-
+    }, function (error) {
+        appendPre(JSON.stringify(error, null, 2));
     
     });
 }
