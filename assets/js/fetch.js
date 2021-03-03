@@ -66,3 +66,37 @@ function initClient() {
     
     });
 }
+
+/**
+ *  Called when the signed in status changes, to update the UI
+ *  appropriately. After a sign-in, the API is called.
+ */
+function updateSigninStatus(isSignedIn) {
+    if (isSignedIn) {
+        authorizeButton.style.display = 'none';
+        signoutButton.style.display = 'block';
+        
+        console.log("Sign-In Successfull")
+        // getIt();
+        // listUpcomingEvents();
+    } else {
+        authorizeButton.style.display = 'block';
+        signoutButton.style.display = 'none';
+
+        console.log("Sign-Out Successfull")
+        
+    }
+}
+
+/**
+ *  Sign in the user upon button click.
+ */
+function handleAuthClick(event) {
+    gapi.auth2.getAuthInstance().signIn();
+}
+/**
+ *  Sign out the user upon button click.
+ */
+function handleSignoutClick(event) {
+    gapi.auth2.getAuthInstance().signOut();
+}
