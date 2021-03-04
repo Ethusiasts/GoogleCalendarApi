@@ -322,13 +322,22 @@ function insertEvent() {
             }
         }
     })
-        .then(function (response) {
-            // Handle the results here (response.result has the parsed body).
-            console.log("Response", response);
-        },
-            function (err) { console.error("Execute error", err); });
-}
-
+    .then(function (response) {
+        // Handle the results here (response.result has the parsed body).
+        Toast.init()
+        Toast.show("Successfully Added",'success')
+        clearFields();
+        goBackToHome();
+    },
+    
+    function (err) {
+        // console.log(checkEmptyInputFields())
+        Toast.init()
+        Toast.show("Something went wrong",'error')
+        
+        });
+        
+} 
 // Delete Events
 function removeEvent(e) {
 	    // e.target.parentElement.remove();
@@ -347,7 +356,10 @@ function removeEvent(e) {
                 // Handle the results here (response.result has the parsed body).
                 console.log("Response", response);
             },
-                function (err) { console.error("Execute error", err); });
+            function (err) { 
+                Toast.init()
+                Toast.show("Something went wrong",'error') });
+
 }
 
 //Clearing input fields 
