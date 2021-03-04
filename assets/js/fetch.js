@@ -199,15 +199,12 @@ function appendPre(messsage,...rest) {
             <h2>${messsage}</h2>
           </header>
          
-        <div class="incoming-name">
-        ${rest[0]}
-        </div>
-        <div class="incoming-name">
-            ${Object.keys(rest[1]).map(function(key){
-            return $;{rest[1][key].email} + "\n"
-        }).join('')
-    }
-    </div>
+            <div class="incoming-name">${rest[0]}</div>
+            <div class="incoming-name">
+                ${Object.keys(rest[1]).map(function (key) {
+                    return `${rest[1][key].email}` + "\n"           
+                }).join('')}
+            </div>
         <div class="incoming-name">${rest[2]}</div>
         <div class="incoming-name">${rest[3]}</div>
         <div class="incoming-name to-be-deleted-id" style = "display:none">${rest[4]}</div> 
