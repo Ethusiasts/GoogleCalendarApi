@@ -169,6 +169,15 @@ function displayForm(){
     
 }
 
+
+//home back function
+function goBackToHome(){
+    fetchCard.style.display="none";
+    calendarHomePage.style.display="block";
+    ins.style.display="none";
+    
+}
+
 // appending to the cards
 function appendPre(messsage,...rest) {
     fetchCard.innerHTML += `
