@@ -384,3 +384,14 @@ const  Toast = {
         },1500)
     }
 };
+function checkEmptyInputFields(){
+    if(document.querySelector("#summery").value !== "" && document.querySelector("#location").value !=="" &&
+    document.querySelector("#startDate").value !== "" && document.querySelector("#startTime").value !== "" && 
+    document.querySelector("#endDate").value !== "" && document.querySelector("#endTime").value !== "" && 
+    document.querySelector("#attendees").value !== "" && document.querySelector("#message").value !== "")
+    {
+        return true;
+    }
+    
+    return false;
+}

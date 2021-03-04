@@ -20,23 +20,27 @@
     </div>
     <ul>
       <li><a href="#" id="insert">Add Events</a></li>
-     
+
       <li><a id="display">See Upcoming Events</a></li>
     </ul>
   </nav>
 
   <header>
-      <button id="toggle" class="toggle">
-        <i class="fa fa-bars fa-2x"></i>
-      </button>
+    <button id="toggle" class="toggle">
+      <i class="fa fa-bars fa-2x"></i>
+    </button>
 
-      <h1>Google Calendar</h1>
+    <h1>Google Calendar</h1>
 
-      <p>
-        Get Started with  My Calendar 
-      </p>
-      <button class="cta-btn" id="authorize_button" style="display: none;">Get Started</button>
-      <button class="cta-btn" id="signout_button" style="display: none;">Sign Out</button>
+    <p>
+      Get Started with My Calendar
+    </p>
+    <button class="cta-btn" id="authorize_button" style="display: none;">Get Started</button>
+    <button class="cta-btn" id="signout_button" style="display: none;">Sign Out</button>
+
+    <button class="homebtn">
+      <i class="fas fa-home fa-2x"></i>
+    </button>
   </header>
 
   <div class="container ">
@@ -50,30 +54,36 @@
       <h2>What is this My Calendar Page about?</h2>
       <p>
 
-        You can use the Google Calendar API to find and view public calendar events. If you're authorized, you can also access and modify private calendars and events on those calendars.
+        You can use the Google Calendar API to find and view public calendar events. If you're authorized, you can also
+        access and modify private calendars and events on those calendars.
 
       </p>
       <p>
-        In this calendar, we have used google calendar API to fetch,update and delete events. So, you can easily navigate through my website and you can easily do what you want.   
+        In this calendar, we have used google calendar API to fetch,update and delete events. So, you can easily
+        navigate through my website and you can easily do what you want.
 
       </p>
-  
+
       <h2>Tell Me More</h2>
-  
+
       <p>
-        Some things you think will be simple actually end up getting really complex. We know this all to well, which is why we rolled out a brand new Calendar using google calendar API -- and awesome features to go with it.
+        Some things you think will be simple actually end up getting really complex. We know this all to well, which is
+        why we rolled out a brand new Calendar using google calendar API -- and awesome features to go with it.
 
-I know you are asking what those features are.Okay,Let's go over all of them to make your life a little easier.
+        I know you are asking what those features are.Okay,Let's go over all of them to make your life a little easier.
 
-my calendar comes with your personal Gmail address(It will ask you to authorize), and then you will get access to our features. You can insert events to your google calendar from our
-website and you can see appointments or events which are coming in the near future. Even you can update and delete events if you have changed your mind. All in all, this calendar will make your life easier.
+        my calendar comes with your personal Gmail address(It will ask you to authorize), and then you will get access
+        to our features. You can insert events to your google calendar from our
+        website and you can see appointments or events which are coming in the near future. Even you can update and
+        delete events if you have changed your mind. All in all, this calendar will make your life easier.
       </p>
-  
+
       <h2>Benefits</h2>
-      
-  
+
+
       <p>
-        With this calendar, you can quickly schedule meetings and events and see upcoming events,so you always know what’s next. 
+        With this calendar, you can quickly schedule meetings and events and see upcoming events,so you always know
+        what’s next.
       </p>
     </div>
 
@@ -115,7 +125,7 @@ website and you can see appointments or events which are coming in the near futu
             </div>
             <div class="textarea-box">
               <span class="details">Message</span>
-              <textarea name="message"  cols="30" rows="8" id="message"></textarea>
+              <textarea name="message" cols="30" rows="8" id="message"></textarea>
             </div>
           </div>
           <div class="button">
@@ -132,17 +142,17 @@ website and you can see appointments or events which are coming in the near futu
 
 
 
-  
 
- 
+
+
   <!-- <script src=""></script> -->
   <script src="./assets/js/app.js"></script>
   <script src="./assets/js/fetch.js"></script>
 
-<!-- connecting to the fetching api  -->
+  <!-- connecting to the fetching api  -->
   <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
-  </script>
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
 
 
 </body>
