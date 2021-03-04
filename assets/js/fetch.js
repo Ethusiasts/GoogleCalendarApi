@@ -1,4 +1,5 @@
 // defining variables
+var checker = false;
 
 // start
 
@@ -14,6 +15,9 @@ const endTime = document.querySelector("#endTime")
 const attendees = document.querySelector("#attendees")
 const message = document.querySelector("#message")
 
+
+// home page button
+const homebtn =document.querySelector(".homebtn");
 // front page content
 const calendarHomePage = document.querySelector(".home-calendar-page")
 // add event button
@@ -55,6 +59,8 @@ insert.addEventListener('click',displayForm);
 display.addEventListener('click',listUpcomingEvents);
 // Listner for adding Events
 add.addEventListener('click', insertEvent)
+// go back to home page
+homebtn.addEventListener('click', goBackToHome)
 // end
 
 
@@ -108,9 +114,11 @@ function initClient() {
  
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
+        checker = true;
         authorizeButton.style.display = 'none';
         signoutButton.style.display = 'block';
     } else {
+        checker = false;
         authorizeButton.style.display = 'block';
         signoutButton.style.display = 'none';
     }
@@ -160,12 +168,17 @@ function updateEvent(incomingEventId) {
 
 function displayForm(){ 
    
-    fetchCard.style.display = "none";
-    calendarHomePage.style.display = "none";
-    // fetchCard.style.display = "none";
-    update_eve.style.display = "none";
-    ins.style.display = "block";
-    add.style.display = "block";
+    if(checker){
+        fetchCard.style.display = "none";
+        calendarHomePage.style.display = "none";
+        update_eve.style.display = "none";
+        ins.style.display = "block";
+        add.style.display = "block";
+    }
+    else{
+        Toast.init()
+        Toast.show("You are not signed In",'error')
+    }
     
 }
 
@@ -191,8 +204,6 @@ function appendPre(messsage,...rest) {
         </div>
         <div class="incoming-name">
             ${Object.keys(rest[1]).map(function(key){
-            console.log("sdf")
-            console.log(rest[1][key].email)
             return $;{rest[1][key].email} + "\n"
         }).join('')
     }
@@ -210,48 +221,56 @@ function appendPre(messsage,...rest) {
 
 // fetching upcoming events
 function listUpcomingEvents() {
-    
-    displayCards();
-    fetchCard.style.display = "flex";
-    ins.style.display = "none";
+    displayForm();
+    if(checker){
+        fetchCard.style.display = "flex";
+        ins.style.display = "none";
 
-    gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'timeMin': (new Date()).toISOString(),
-        'showDeleted': false,
-        'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime'
-    }).then(function (response) {
-        var events = response.result.items;
-        if (events.length > 0) {
-            fetchCard.innerHTML = "";
-            for (i = 0; i < events.length; i++) {
-                var event = events[i];
-                var dateTime = event.start.dateTime
-                var dateTimeEnd = event.end.dateTime
-                if (!dateTime) {
-                    dateTime = event.start.date;
-                }
-                if (!dateTimeEnd) {
-                    dateTimeEnd = event.end.date;
-                }
-                appendPre(event.summary,event.description,event.attendees, dateTime, dateTimeEnd,event.id)
-            }    
-           
-        } else {
-            const fetchCard = document.querySelector('.fetchCard');
-            fetchCard.innerHTML = `
-            <div class="card-body">
-            <h5 class="card-title">No upcoming events found.</h5>
-            </div> 
-            `
-        }
-    });
+        gapi.client.calendar.events.list({
+            'calendarId': 'primary',
+            'timeMin': (new Date()).toISOString(),
+            'showDeleted': false,
+            'singleEvents': true,
+            'maxResults': 10,
+            'orderBy': 'startTime'
+        }).then(function (response) {
+            var events = response.result.items;
+            if (events.length > 0) {
+                fetchCard.innerHTML = "";
+                for (i = 0; i < events.length; i++) {
+                    var event = events[i];
+                    var dateTime = event.start.dateTime
+                    var dateTimeEnd = event.end.dateTime
+                    if (!dateTime) {
+                        dateTime = event.start.date;
+                    }
+                    if (!dateTimeEnd) {
+                        dateTimeEnd = event.end.date;
+                    }
+                    appendPre(event.summary,event.description,event.attendees, dateTime, dateTimeEnd,event.id)
+                }    
+            
+            } else {
+                const fetchCard = document.querySelector('.fetchCard');
+                fetchCard.innerHTML = `
+                <div class="card-body">
+                <h5 class="card-title">No upcoming events found.</h5>
+                </div> 
+                `
+            }
+        });
+    }
+        
 }
+
 
 // updating event
 function updateEvent2(){
+    if(!checkEmptyInputFields()){
+        Toast.init()
+        Toast.show("All the inputs should be filled",'error')
+        return
+    }
 	    var event = {
         'calendarId': 'primary',
         'eventId': `${eventIdStore[0]}`,
@@ -282,16 +301,27 @@ function updateEvent2(){
     };
 
         return gapi.client.calendar.events.update(event)
-                .then(function (response) {
-                    // Handle the results here (response.result has the parsed body).
-                    console.log("Response", response);
-                },
-                    function (err) { console.log("Execute error", err); });
+        .then(function (response) {
+            // Handle the results here (response.result has the parsed body).
+            Toast.init()
+            Toast.show("Successfully Updated",'success')
+            eventIdStore.pop();
+            clearFields();
+            listUpcomingEvents();
+        },
+        function (err) { 
+            Toast.init()
+            Toast.show("Something went wrong",'error') });
 
 }
 
 // Inserting Events
 function insertEvent() {
+    if(!checkEmptyInputFields()){
+        Toast.init()
+        Toast.show("All the inputs should be filled",'error')
+        return
+    }
     return gapi.client.calendar.events.insert({
         'calendarId': 'primary',
         'resource': {
