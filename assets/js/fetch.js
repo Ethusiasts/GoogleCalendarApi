@@ -331,3 +331,16 @@ function removeEvent(e) {
             },
                 function (err) { console.error("Execute error", err); });
 }
+
+//Clearing input fields 
+function clearFields(){
+    document.querySelector("#summery").value=""
+    document.querySelector("#location").value=""
+    document.querySelector("#startDate").value=""
+    document.querySelector("#startTime").value=""
+    document.querySelector("#endDate").value=""
+    document.querySelector("#endTime").value=""
+    document.querySelector("#attendees").value=""
+    document.querySelector("#message").value=""
+
+}
